@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Getting Started | BigTimeLegend</title>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+	    <div class="navbar-header">
+		    <ul class="nav navbar-nav">
+		      <li><a href="index.html">Home</a></li>
+		      <li><a href="about.html">About</a></li>
+		      <li><a href="contact.html">Contact</a></li>
+		      <li><a href="tutorials.html">Tutorials</a></li>
+		    </ul>
+			</div>
+		</div>
+
+		<div class="container">
+			<h2>Getting Started</h2>
+			<p>Okay, I do not want to overload all of this with information but I will be explaining the best to my ability and yes these tutorials are intended to help everyone become a developer.<br/>
+				So now lets just begin so you may know or may not know that in order to create an iOS app you must have a Mac with XCode installed but the beauty of creating cydia tweaks is that
+				you can create them on your iPhone, Windows PC, Linux PC and a Mac.</br>
+				To setup the development environment we must use theos, I will be explaining how to install theos on an iPhone and this may not yet fully work on iOS 9 but this is how you do it.</p>
+
+			<h3>On your iDevice</h3>
+			<ol>
+				<li> First add these sources in Cydia which are:
+					<ul>
+						<li>http://coolstar.org/publicrepo/</li>
+						<li>http://nix.howett.net/theos/</li>
+					</ul>
+				</li>
+				<li> Next install these packages from cydia:
+					<ul>
+						<li>theos</li>
+						<li>Perl</li>
+						<li>Git</li>
+						<li>Darwin CC Tools (By Coolstar)</li>
+						<li>iOS Toolchain</li>
+						<li>BigBoss Reccomended Tools</li>
+						<li>Mobile Terminal</li>
+						<li>iFile</li>
+					</ul>
+				</li>
+				<li>Next you want to download the iOS SDK from <a href="http://iphone.howett.net/sdks">Here</a>, wait for it to download before proceeding to the next step</li>
+				<li>Now you want to open up iFile and navigate to "/var/theos" and create a new folder called "sdks"</li>
+				<li>Find the SDK file we downloaded earlier and copy that file into your sdks folder</li>
+				<li>Extract the SDK file, this may take a few minutes</li>
+				<li>Now open up Mobile Terminal and login as root as you can do this by entering "su" followed by the password "alpine" (if you have not changed the pasword)</li>
+				<li>Enter the command "$THEOS/bin/nic.pl" and it should display all of your theos template, if you see this then congrats you have successfully setup theos on your device</li>
+			</ol>
+
+			<h3>On other platforms (Windows, Linux, Mac)</h3>
+			<p>Follow the tutorial on the iPhone Dev Wiki <a href="http://iphonedevwiki.net/index.php/Theos/Setup">here</a>, if you have any problems contact me and I'll be happy to help.</p>
+			<ul>
+	  		<li><a href="getting-started.html"><b>Getting Started</b></a></li>
+	  		<li><a href="first-tweak.html"><b>First Tweak</b></a></li>
+	  		<li><a href="preference-tweaks.html"><b>Preference Tweaks</b></a></li>
+			</ul>
+    </div>
+	</body>
+</html>
