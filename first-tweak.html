@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Tutorials | BigTimeLegend</title>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+	    <div class="navbar-header">
+		    <ul class="nav navbar-nav">
+		      <li><a href="index.html">Home</a></li>
+		      <li><a href="tutorials.html">Tutorials</a></li>
+		      <li><a href="about.html">About</a></li>
+		      <li><a href="contact.html">Contact</a></li>
+		      <li><a href="about.html">Tutorials</a></li>
+		    </ul>
+			</div>
+		</div>
+
+		<div class="container">
+			<h2>Creating our first tweak</h2>
+			<p>Yay! Now that we have theos installed we are now going to develop out first tweak, let's start.</p>
+			<ol>
+				<li>Okay so first go into terminal or cygwin (if you are using Windows) and login as root</li>
+				<li>If we are on iOS and now we want to run "$THEOS/bin/nic.pl" (if it doesn't work try running "~/THEOS/bin/nic.pl")</li>
+				<li>We will get a list of templates but we're going to pick "3" because we want to create a tweak</li>
+				<li>Enter the name of your tweak, the tweak we're creating is called "welcomeme" which will display an alert whenever you respring your device, just press enter until it says done</li>
+				<li>Before we create tweaks we will need header files which basically methods that iOS uses and this will become more clear soon. You can download the headers <a href="https://github.com/nst/iOS-Runtime-Headers">here</a> and paste them into "/var/theos/include"</li>
+				<li>Now once all of this is done we want to go to "/var/mobile/welcomeme" and in these folders we will see many files but don't worry I will be explaing all of these files now.</li>
+
+				<ol>
+					<li>The CONTROL file is where dpkg will read all of the information about the package</li>
+					<li>The Tweak.xm file is where we will be writing the tweak</li>
+					<li>The makefile is basically just some shell commands which will tell the compiler what to do with your package</li>
+					<li>The theos folder is just a symlink to your normal theos folder however it's needed by your make file</li>
+				</ol>
+			</ol>
+				<p>Now before we start coding up your tweak you will need to know Objective C and logos which are the two main programming languages used to develop Cydia tweaks but don't worry I will be creating tutorials on Objective C :)<p>
+				<p>First we need to know what a header file is, so in basic terms a header file is where all of the methods are declared and there is an implementation file in which a person writes what they want to happen when this method is run and I will give an example now.</p>
+				<p>For example if we are creating an app we will have two main files so in our header (.h) file we could create a method called "whenAppLaunches" and this will be the method of when our app launches and in our implementation file we would write "whenAppLaunches {
+					"Display a photo" } so when we open our app it will display a photo. The header file is where we declare and define our methods and the implemnetation file is where we write down what our method is going to do so in our example we just declared the method of the app launching but in the implementation file we wrote what we want to happen when that method is ran. </p>
+
+	<p> Hopefully that explains it all and if it doesn't message me on twitter and I will explain it all to you to the best I can. So now we will open our tweak.xm file in which we are going to write the code of what happens when the springboard launches. We need to go back to our header folders and find the header file which contains all of the springboard methods and this file is called springboard.h which is obvious. We need to find the method of when the springboard launches so that we can write out own alert in there, and to make things easier the method of springboard launching is "-(void)applicationDidFinishLaunching:(id)fp8". The "-(void)" means its a method so anything that starts with -(void) is a method in objective C. So now lets head back to out tweak.xm file and lets start out code.
+
+	</p>
+
+	<ol>
+
+		<li> On the first line we want to write "%hook SpringBoard" which basically hooks into the springboard.h file which allows us the methods that are delcared in that file. </li>
+
+		<li> On the next line we want to write the method that we want to change so our method will be "-(void)applicationDidFinishLaunching:(id)application { }" and we want to add two curly braces there so whatever code we put into that method it will eun that code. So in this method we want to display an alert so we would have to display code for an alert in those curly braces.
+
+	</li>
+
+	<li> In those curly braces we want to write out the code for an alert but before this we want to write out "%orig;" which means that It will run the original code of what it was going to do and the original code was to launch the springboard so if we never wrote "%orig;" then the springboard would not launch as it would be trying to run our code and we would then be stuck in a bootloop and would have to restore so remember to include "%orig;" if you want the original code to run and the semi-colon is like a full stop in coding as it shows us that we are done with that line of code.
+
+	<li>
+
+	<li> Now below the %orig; line we want to write out alert code and the code for this is </br>
+	"UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hello" message:@"Niceee" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil];"
+
+</br>
+
+so let me expalin to you what this code means so the "UIAlertView " means that we are showing that we want to display an alert, the "*alert" is just something for us to remember as we can call this anything we want and now the "UIAlertView alloc" means that it is allocaing our alert in the memory and we don't need to know abot memory now. The "initWithTitle" means that we want our alert to initilise with a title and the title for this is hello as we can write anything here. The "message" code just bascially means what message we want to display in our alert code and we can write any message we want and the "cancelButtonTitle" just basically tells us what we want out cancel button to be in our alert and I have wrote okay. "otherButtonTitles" just wants to know if we want to add anymore buttons to out alert and the nil code means that we don't want to display anything and just think of nil as 0.
+</li>
+
+</ol>
+
+<p> Overall our code should look like
+</br>
+	<b>
+
+%hook SpringBoard
+
+-(void)applicationDidFinishLaunching:(id)application {
+
+	%orig;
+
+	UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Hello" message:@"Yoooo" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+
+	[alert show];
+
+	[alert release];
+
+}
+
+%end
+
+</b>
+
+<p> Just to point out the "alert show" code will just show the alert and the alert release will give back memory that it has borrowed but we don't need to know about this :) and now in out makefile right at the top we want to add these lines depending if you're on IOS or windows.
+
+	</br>
+
+	If you're on IOS right at the top add the line "ARCHS = armv7 arm64" and under WelcomeMe_files= Tweak.xm add this line which is "WelcomeMe_FRAMEWORKS = UIKit" which shows us that we are using the UIKit framework and we are using a UIAlertView.  If your're on windows do the same as iPhone but right at the top add this line "export THEOS_DEVICE_IP = YOURIP" and replace "YOURIP" with your actual ip address and you can get this by going into settings>wifi and clicking that little i.
+
+</br>
+
+Now your makefile should look like this for IOS
+</br>
+<b>ARCHS = armv7 arm64
+ SDK = iPhoneOS8.1
+include theos/makefiles/common.mk
+
+TWEAK_NAME = WelcomeMe
+WelcomeMe_FILES = Tweak.xm
+
+ WelcomeMe_FRAMEWORKS = UIKit
+ include $(THEOS_MAKE_PATH)/tweak.mk
+
+after-install::
+	install.exec "killall -9 SpringBoard"
+
+</b>
+
+</br>
+
+and for windows your makefile should look like this
+</br>
+
+<b>
+ARCHS = armv7 arm64
+ export THEOS_DEVICE_IP = 192.132.9.0
+ SDK = iPhoneOS8.1
+include theos/makefiles/common.mk
+
+TWEAK_NAME = WelcomeMe
+WelcomeMe_FILES = Tweak.xm
+
+ WelcomeMe_FRAMEWORKS = UIKit
+ include $(THEOS_MAKE_PATH)/tweak.mk
+
+after-install::
+	install.exec "killall -9 SpringBoard"
+</b>
+
+</br>
+
+but remeber to use your own ip and not the same as mine if you are developing on windows.
+
+</br>
+
+</p>
+
+<p>
+
+	Now we have built are tweak we must install this so lets install this bad boy.
+
+</br>
+
+</p>
+
+<h4>IOS</h4>
+
+<p>To install on IOS open up mobile terminal and login as root (if you don't know refer back as I have talked about this before) and once you have logged in as root type in this command "cd /var/mobile/welcomeme" and press enter and your device should respring and you should see an alert :)
+
+	</p>
+
+</br>
+
+<h4>Windows</h4>
+
+To install on windows you must ssh into your device so download winscp and on your device make sure you have openssh installed from cydia. On your PC open up winscp and make sure your phone and your PC are connected to the same wifi network and in Winscp enter your ip address and leave it as port 22 and enter in root as the username and alpine as the password (unless you have changed this). Once connected open up cygwin and enter in this command "cd ~/welcomeme" and then hit enter and now enter in this command "make package install" and it should insall to your device and it may ask for your password a few times (which is alpine unless you have changed this) and once done your device should respring and your tweak should work </p>
+
+</br>
+
+<p>Thanks for reading my tutorial on your first tweak and if you are confused or face any error message me and I will always be helping you guys and I will be making many more tutorials on tweaks and I will be making a lot on objective c so don't worry if you are confused right now :P ></p>
+
+			</ol>
+			<ul>
+	  		<li><a href="getting-started.html"><b>Getting Started</b></a></li>
+	  		<li><a href="first-tweak.html"><b>First Tweak</b></a></li>
+	  		<li><a href="preference-tweaks.html"><b>Preference Tweaks</b></a></li>
+			</ul>
+    </div>
+	</body>
+</html>
