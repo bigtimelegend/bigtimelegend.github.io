@@ -3,7 +3,7 @@
 /*please do not copy this code but just to use this to help you*/
 body {
 
-  	background-color: #66FFFF;
+  background:linear-gradient(red, blue);
 }
 
 .top {
@@ -30,5 +30,8 @@ body {
    	font-weight: none;
    }
 
+.wwe {
 
+  text-color:black;
+}
 
